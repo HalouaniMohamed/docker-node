@@ -30,11 +30,10 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-node:latest
 
       - name: Set up Docker Compose
-        uses: docker/compose-action@v2
+        uses: isbang/compose-action@v1.5.1
         with:
           compose-file: docker-compose.dev.yml
-          compose-command: up
-          compose-args: -d
+          up-flags: -d
 
       - name: Run Tests with Docker Compose
         run: |
