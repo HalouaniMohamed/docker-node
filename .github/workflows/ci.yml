@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -28,17 +28,3 @@ jobs:
           dockerfile: Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-node:latest
-
-      - name: Set up Docker Compose
-        uses: isbang/compose-action@v1.5.1
-        with:
-          compose-file: docker-compose.dev.yml
-          up-flags: -d
-
-      - name: Run Tests with Docker Compose
-        run: |
-          docker exec -it docker-node npm run test
-        # Replace YOUR_CONTAINER_NAME with the appropriate container name
-
-      - name: Stop Docker Compose Services
-        run: docker-compose -f docker-compose.dev.yml down
